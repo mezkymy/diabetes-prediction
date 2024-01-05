@@ -8,7 +8,7 @@ Context (copied from Kaggle):
 The Diabetes prediction dataset is a collection of medical and demographic data from patients, along with their diabetes status (positive or negative). The data includes features such as age, gender, body mass index (BMI), hypertension, heart disease, smoking history, HbA1c level, and blood glucose level. This dataset can be used to build machine learning models to predict diabetes in patients based on their medical history and demographic information. This can be useful for healthcare professionals in identifying patients who may be at risk of developing diabetes and in developing personalized treatment plans. Additionally, the dataset can be used by researchers to explore the relationships between various medical and demographic factors and the likelihood of developing diabetes.
 
 
-# Insights
+# Data Exploration Insights
 ![Result of Pair Plot](https://github.com/mezkymy/diabetes-prediction/assets/79908491/40382d26-6d93-43fa-9b87-21872d80080c)
 
 Based on the pair plot, we can gather some insights visually:
@@ -18,10 +18,23 @@ Based on the pair plot, we can gather some insights visually:
 4. Judging visually, a higher age means a higher risk of having diabetes, while hypertension and heart disease does not always indicate diabetes. Body mass index also are not visually correlated to diabetes
 5. BMI are either heavily skewed, or there are some outliers that might need to be treated or removed
 
+# Modeling
+![gambar](https://github.com/mezkymy/diabetes-prediction/assets/79908491/0ad25d10-299f-4a3b-ba0a-2846c89cdc56)
+In this project, five model types are used and compared with each other, which are:
+1. Decision Tree
+2. Random Forest
+3. Logistic Regression
+4. KNN
+5. XGBoost
+
+The third iteration of feature combinations which includes the features `age`, `bmi`, `HbA1c_level`, `blood_glucose_level`, `hypertension`, and `heart_disease` produces the best model with the lowest recall score achieved by Random Forest and XGBoost models. Tuning the Random Forest model, it achieved around 95% recall score on both train and test data. 
 
 # Model Conclusions
 Comparing all four iterations of modeling based on its recall score, we can see that the third iteration would be the ideal conditions to create the model, where the features used are all of the original features excluding gender, which have a very low correlation with all other features and also the target. On the result of the third iteration, we can also see that there are two models that have a relatively better score compared to others, which is **Random Forest** and **XGBoost**.
 
-Although the model shaped by hyperparameter tuning have a high enough recall and accuracy score while preventing overfitting compared to the base model, its precision score is noticably low. Depending on the use case, this might not be a huge concern since the amount of False Negatives (predicted 0 or non-diabetes, actual 1 or diabetes) are minimalized on the model.
+Although the model shaped by hyperparameter tuning have a high enough recall and accuracy score while preventing overfitting compared to the base model, its precision score is noticably low. Depending on the use case, this might not be a huge concern since the amount of False Negatives (predicted 0 or non-diabetes, actual 1 or diabetes) are minimalized on the model. Note that a 95% recall score means that there are still 10% rate of False Negatives occuring, which is still pretty significant considering that for medical purposes failing to detect a disease may lead to loss of lives.
 
-Since the split between the predicted class of 1 (predicted with diabetes) which are actually diagnosed with diabetes (1) or not (0 or False Positive) are still 1:2, there will still be more patients that does not actually have diabetes compared to patients that actually have diabetes in that predicted class. If this model is to be deployed, more thorough physical examinations should still be conducted on patients predicted with diabetes.
+Since the split between the predicted class of 1 (predicted with diabetes) which are actually diagnosed with diabetes (1) or not (0 or False Positive) are almost 1:2, there will still be more patients that does not actually have diabetes compared to patients that actually have diabetes in the diabetes-predicted class. If this model is to be deployed, more thorough physical examinations should still be conducted on patients predicted with diabetes. 
+
+This model can be used to quickly scan through patients but manual examinations are still necessary to prevent misdiagnosis and mistreatment. More data and information needs be collected to improve the performance of model.
+
